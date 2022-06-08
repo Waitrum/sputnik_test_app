@@ -15,7 +15,7 @@ class API {
     return _instance;
   }
 
-  String _baseUrl = 'https://api.github.com/users/GantMan';
+  static const _baseUrl = 'https://api.github.com/users/GantMan';
 
   Future<String> _request(String path) async {
     var resp = await http.get(Uri.parse(_baseUrl + path));

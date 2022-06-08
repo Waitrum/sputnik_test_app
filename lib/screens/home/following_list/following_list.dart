@@ -12,7 +12,6 @@ class FollowingList extends StatelessWidget {
       create: (context) =>
           FollowinglistBloc()..add(FollowinglistInitialEvent()),
       child: Builder(builder: (context) {
-        final bloc = context.read<FollowinglistBloc>();
         return Column(
           children: [
             Padding(

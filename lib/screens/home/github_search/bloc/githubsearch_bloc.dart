@@ -10,11 +10,8 @@ class GithubsearchBloc extends Bloc<GithubsearchEvent, GithubsearchState> {
   late final TextEditingController _textEditingController;
 
   TextEditingController get textEditingController => _textEditingController;
-  void createBadState() {
-    emit(GithubsearchErrorState());
-  }
 
-  GithubsearchBloc() : super(GithubsearchSearchState()) {
+  GithubsearchBloc() : super(const GithubsearchSearchState()) {
     _textEditingController = TextEditingController();
     _textEditingController.addListener(() {
       add(GithubsearchSearchedEvent());

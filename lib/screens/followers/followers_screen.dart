@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sputnik_test_app/screens/followers/bloc/followers_bloc.dart';
 import 'package:sputnik_test_app/services/constans.dart';
-import 'package:sputnik_test_app/services/context_extentions.dart';
 
 class FollowersScreen extends StatefulWidget {
   const FollowersScreen({Key? key}) : super(key: key);

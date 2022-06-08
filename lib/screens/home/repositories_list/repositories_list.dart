@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:sputnik_test_app/screens/home/following_list/bloc/followinglist_bloc.dart';
 import 'package:sputnik_test_app/screens/home/repositories_list/bloc/repositorieslist_bloc.dart';
 import 'package:sputnik_test_app/services/constans.dart';
 
