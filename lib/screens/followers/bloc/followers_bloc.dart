@@ -10,7 +10,15 @@ class FollowersBloc extends Bloc<FollowersEvent, FollowersState> {
   FollowersBloc() : super(FollowersLoadingState()) {
     on<FollowersInitializedEvent>((event, emit) async {
       var resp = await API().getFollowers();
-      
+
+      emit(FollowersSuccessState(resp));
+    });
+    
+    on<FollowersRefreshedEvent>((event, emit) async {
+      emit(FollowersLoadingState());
+
+      var resp = await API().getFollowers();
+
       emit(FollowersSuccessState(resp));
     });
   }

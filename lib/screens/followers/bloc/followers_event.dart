@@ -8,3 +8,4 @@ abstract class FollowersEvent extends Equatable {
 }
 
 class FollowersInitializedEvent extends FollowersEvent {}
+class FollowersRefreshedEvent extends FollowersEvent {}

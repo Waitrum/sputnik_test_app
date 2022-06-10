@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,6 +17,7 @@ class FollowersScreen extends StatefulWidget {
 class _FollowersScreenState extends State<FollowersScreen> {
   @override
   Widget build(BuildContext context) {
+    var bloc = context.read<FollowersBloc>();
     return NestedScrollView(
       floatHeaderSlivers: true,
       headerSliverBuilder: ((context, innerBoxIsScrolled) {
@@ -78,52 +81,57 @@ class _FollowersScreenState extends State<FollowersScreen> {
       body: BlocBuilder<FollowersBloc, FollowersState>(
         builder: (context, state) {
           if (state is FollowersSuccessState) {
-            return ListView.separated(
-              padding: EdgeInsets.zero,
-              itemBuilder: ((context, index) {
-                return Container(
-                  padding: const EdgeInsets.all(20),
-                  child: Row(
-                    children: [
-                      CircleAvatar(
-                        radius: 30,
-                        backgroundColor: ProjectColors.greyBackground,
-                        foregroundImage: NetworkImage(
-                          state.followers[index].avatarUrl,
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 12,
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            state.followers[index].login,
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: ProjectColors.primaryText,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          Text(
-                            state.followers[index].id.toString(),
-                            style: TextStyle(
-                              fontSize: 17,
-                              color: ProjectColors.secondaryText,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                );
-              }),
-              separatorBuilder: (context, index) {
-                return const Divider();
+            return RefreshIndicator(
+              onRefresh: () async {
+                bloc.add(FollowersRefreshedEvent());
               },
-              itemCount: state.followers.length,
+              child: ListView.separated(
+                padding: EdgeInsets.zero,
+                itemBuilder: ((context, index) {
+                  return Container(
+                    padding: const EdgeInsets.all(20),
+                    child: Row(
+                      children: [
+                        CircleAvatar(
+                          radius: 30,
+                          backgroundColor: ProjectColors.greyBackground,
+                          foregroundImage: NetworkImage(
+                            state.followers[index].avatarUrl,
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 12,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              state.followers[index].login,
+                              style: TextStyle(
+                                fontSize: 20,
+                                color: ProjectColors.primaryText,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            Text(
+                              state.followers[index].id.toString(),
+                              style: TextStyle(
+                                fontSize: 17,
+                                color: ProjectColors.secondaryText,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  );
+                }),
+                separatorBuilder: (context, index) {
+                  return const Divider();
+                },
+                itemCount: state.followers.length,
+              ),
             );
           }
           return const Center(
